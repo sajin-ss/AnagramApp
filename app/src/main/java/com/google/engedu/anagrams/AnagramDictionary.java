@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
@@ -17,6 +18,7 @@ public class AnagramDictionary {
     private static final int MIN_NUM_ANAGRAMS = 5;
     private static final int DEFAULT_WORD_LENGTH = 3;
     private static final int MAX_WORD_LENGTH = 7;
+    private static int chooser=-1;
 
     int wordLength=DEFAULT_WORD_LENGTH;
 
@@ -24,6 +26,7 @@ public class AnagramDictionary {
     ArrayList wordList = new ArrayList();
     HashMap<String, ArrayList> lettersToWord = new HashMap();
     HashMap<Integer, ArrayList> sizeToWords = new HashMap<>();
+    ArrayList<Integer> seed;
 
 
 
@@ -136,13 +139,41 @@ public class AnagramDictionary {
 
     public String pickGoodStarterWord() {
         String send;
-
-        Random randomizer = new Random();
-        int i = randomizer.nextInt(wordList.size());
-
         ArrayList<String> ana = sizeToWords.get(wordLength);
 
-        send = ana.get(i);
+        if (chooser == -1){
+            chooser=0;
+
+            seed = new ArrayList<>();
+            for(int i=0; i<ana.size(); ++i)
+                seed.add(i);
+            Collections.shuffle(seed);
+        }else if (chooser==ana.size()){
+
+            chooser = 0;
+            wordLength += 1;
+
+            if (wordLength==MAX_WORD_LENGTH)
+                wordLength=DEFAULT_WORD_LENGTH;
+
+            ana = sizeToWords.get(wordLength);
+
+            seed = new ArrayList<>();
+            for(int i=0; i<ana.size(); ++i)
+                seed.add(i);
+            Collections.shuffle(seed);
+        }
+
+        send = ana.get(chooser);
+        chooser++;
+
+        Log.d("chooser", String.valueOf(chooser));
+
+        // Random randomizer = new Random();
+        //int i = randomizer.nextInt(wordList.size());
+
+
+//        send = ana.get(i);
 //        send = (String) wordList.get(i);
 //        while (lettersToWord.get(sortLetters(send)).size() < MIN_NUM_ANAGRAMS){
 //            i++;
