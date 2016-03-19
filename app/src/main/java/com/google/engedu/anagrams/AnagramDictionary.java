@@ -119,6 +119,28 @@ public class AnagramDictionary {
 
     }
 
+
+    public ArrayList<String> getAnagramsWithTwoMoreLetter(String word) {
+        ArrayList<String> result = new ArrayList<String>();
+        char ch = 'a';
+        char c;
+        ArrayList<String> anagrams;
+        for(int i =0;i<26 ;i++) {
+            c = 'a';
+            for(int j =0;j<26 ;j++) {
+                if (lettersToWord.containsKey(sortLetters(word + ch + c))) {
+                    anagrams = lettersToWord.get(sortLetters(word + ch + c));
+                    for (String temp : anagrams)
+                        if (!temp.contains(word))
+                            result.add(temp);
+                }
+                c++;
+            }
+            ch++;
+        }
+        return result;
+
+    }
 //    public void permutation(String str) {
 //        permutation("", str, str);
 //    }
@@ -164,10 +186,13 @@ public class AnagramDictionary {
             Collections.shuffle(seed);
         }
 
-        send = ana.get(chooser);
+        send = ana.get(seed.get(chooser));
+        while(getAnagramsWithOneMoreLetter(send).size() < MIN_NUM_ANAGRAMS){
+            chooser++;
+            send = ana.get(seed.get(chooser));
+        }
         chooser++;
 
-        Log.d("chooser", String.valueOf(chooser));
 
         // Random randomizer = new Random();
         //int i = randomizer.nextInt(wordList.size());
