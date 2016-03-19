@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class AnagramsActivity extends AppCompatActivity {
 
-    public static final String START_MESSAGE = "Find as many words as possible that can be formed by adding one letter to <big>%s</big> (but that do not contain the substring %s).";
+    public static final String START_MESSAGE = "Find as many words as possible that can be formed by adding one/two letter to <big>%s</big> (but that do not contain the substring %s).";
     private AnagramDictionary dictionary;
     private String currentWord;
     private ArrayList<String> anagrams;

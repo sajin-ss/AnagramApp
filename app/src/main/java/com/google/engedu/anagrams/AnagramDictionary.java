@@ -100,10 +100,8 @@ public class AnagramDictionary {
 
 
         for (char i='a'; i<='z'; ++i) {
-//            Log.d("sdf", sortLetters(temp+i));
             if (lettersToWord.containsKey(sortLetters(temp+i)))
             {
-//                Log.d("asdfg", "yathaaaaa");
                 ArrayList<String> anagrams = lettersToWord.get(sortLetters(temp+i));
                 for (String ana : anagrams)
                     if (!ana.contains(word))
@@ -125,6 +123,18 @@ public class AnagramDictionary {
         char ch = 'a';
         char c;
         ArrayList<String> anagrams;
+
+        for (char i ='a';i<='z' ;i++) {
+            if (lettersToWord.containsKey(sortLetters(word+i)))
+            {
+                anagrams = lettersToWord.get(sortLetters(word+i));
+                for (String ana : anagrams)
+                    if (!ana.contains(word))
+                        result.add(ana);
+            }
+
+        }
+
         for(int i =0;i<26 ;i++) {
             c = 'a';
             for(int j =0;j<26 ;j++) {
@@ -192,7 +202,6 @@ public class AnagramDictionary {
             send = ana.get(seed.get(chooser));
         }
         chooser++;
-
 
         // Random randomizer = new Random();
         //int i = randomizer.nextInt(wordList.size());
